@@ -1,5 +1,5 @@
 module.exports = {
-    get: function () {
+    imprimirNoticias: function () {
         var articulos = []
         var nuevo1 = new Articulo("Fin de año, con la cabeza quemada: tips para hacerle frente","El síndrome de “Burnout” es la epidemia del siglo XXI, que afecta cada vez a más personas. Cuáles son sus causas y quiénes son más propensos a sufrirlo","","single.html","images/post1.jpg");
         var nuevo2 = new Articulo("Estos son los teléfonos en los que dejará de funcionar WhatsApp","Estos son los teléfonos en los que dejará de funcionar WhatsApp.","","single2.html","images/post2.jpg");

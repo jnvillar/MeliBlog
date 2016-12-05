@@ -1,6 +1,6 @@
 var http = require("http");
 var url = require("url");
-var noticiasService = require('./manejadorArticulos');
+var manejadorArticulos = require('./manejadorArticulos');
 var mu = require('mu2');
 var server = http.createServer();
 var fs = require('fs');
@@ -21,14 +21,14 @@ server.on ("request", function (req, res) {
     var path = urlData.pathname;
 
     // if(path == '/' || path == '/noticias') {
-    if(path == '/' || path == '/index.html') {
+    if(path == '/index.html') {
         //WORK WITH MUSTACHE
 
         mu.clearCache();
 
         page.title = 'Reddit - Curso - Dinamico';
         page.description = '';
-        var noticias = noticiasService.get();
+        var noticias = manejadorArticulos.imprimirNoticias();
         // var stream = mu.compileAndRender('index.html', {page: page, nombre: "Jonathan", noticias: noticiasService.get()});
         var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: noticias});
 
