@@ -75,34 +75,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	 <div class="container">
 		 <div class="content-grids">
 			 <div class="col-md-8 content-main">
-				 <div class="content-grid">					 
+				 <div class="content-grid">
 
+					{{#noticias}}
 					 <div class="content-grid-info">
-						 <img src="images/post1.jpg" alt=""/>
+						 <img src= "{{imagen}}" alt=""/>
 						 <div class="post-info">
-						 <h4><a href="single.html">Fin de año, con la cabeza quemada: tips para hacerle frente</a>  </h4>
-						 <p>El síndrome de “Burnout” es la epidemia del siglo XXI, que afecta cada vez a más personas. Cuáles son sus causas y quiénes son más propensos a sufrirlo</p>
-						 <a href="single.html"><span></span>Seguir leyendo</a>
+							 <h4><a href="{{link}}">{{titulo}}</a>  </h4>
+							 <p>{{resumen}}</p>
+							 <a href="{{link}}"><span></span>Seguir leyendo</a>
 						 </div>
 					 </div>
-
-					 <div class="content-grid-info">
-						 <img src="images/post2.jpg" alt=""/>
-						 <div class="post-info">
-						 <h4><a href="single2.html">Estos son los teléfonos en los que dejará de funcionar WhatsApp</a> </h4>
-						 <p>Estos son los teléfonos en los que dejará de funcionar WhatsApp. </p>
-						 <a href="single.html"><span></span>Seguir leyendo</a>
-						 </div>
-					 </div>
-
-					 <div class="content-grid-info">
-						 <img src="images/post3.jpg" alt=""/>
-						 <div class="post-info">
-						 <h4><a href="single3.html">La receta millonaria que se vendió por solo un dólar</a> </h4>
-						 <p>La receta millonaria que se vendió por solo un dólar.</p>
-						 <a href="single.html"><span></span>Seguir leyendo</a>
-						 </div>
-					 </div>
+					 {{/noticias}}
 					 
 				 </div>
 			  </div>
