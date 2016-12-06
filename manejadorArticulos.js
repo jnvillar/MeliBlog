@@ -20,6 +20,10 @@ module.exports = {
     },
     imprimirArticulo: function (id) {
         return articulos[id];
+    },
+    imprimirUltimo: function () {
+        var ultimo =articulos.length;
+        return articulos[ultimo-1];
     }
 };
 

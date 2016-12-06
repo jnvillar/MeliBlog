@@ -28,6 +28,22 @@ app.get('/index.html', function (req, res) {
 
 });
 
+app.get('/post/ultimo', function (req, res) {
+    mu.clearCache();
+    page.title = 'Reddit - Curso - Dinamico';
+    page.description = '';
+    var articulo = manejadorArticulos.imprimirUltimo();
+    var stream = mu.compileAndRender('single.html', {title: "Reddit" ,contenido: articulo.contenido, imagen: articulo.imagen});
+    stream.pipe(res);
+    return;
+});
+
+app.get('/post/new', function (req, res) {
+    mu.clearCache();
+    res.sendFile();
+    return;
+});
+
 app.get('/post/:id', function (req, res) {
     mu.clearCache();
     var post = req.params.id;
@@ -39,14 +55,13 @@ app.get('/post/:id', function (req, res) {
     return;
 });
 
+
+
 app.use("/css",express.static(__dirname + '/public/css'));
 app.use("/scss",express.static(__dirname + '/public/scss'));
 app.use("/img",express.static(__dirname + '/public/images'));
 app.use("/js",express.static(__dirname + '/public/js'));
 app.use(express.static(__dirname +  '/public'));
-
-
-
 
 app.use(function(req, res, next){
     res.status(404);
@@ -62,7 +77,6 @@ app.use(function(req, res, next){
     }
 
 });
-
 
 app.listen(process.env.PORT || 3000);
 
