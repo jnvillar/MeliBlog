@@ -8,7 +8,7 @@ var express = require("express");
 var app = express();
 mu.root = __dirname + '/public';
 var page = {};
-
+var _ = require('underscore');
 body = require('body-parser');
 app.use(body.json());
 app.use(body.urlencoded({     // to support URL-encoded bodies
@@ -20,16 +20,27 @@ app.get('/', function (req, res) {
     page.title = 'Reddit - Curso - Dinamico';
     page.description = '';
     var noticias = manejadorArticulos.imprimirNoticias();
-    var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: noticias});
+    var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: _.values(noticias)});
     stream.pipe(res);
 });
 
-app.get('/newArticulo', function (req, res) {
+
+app.get('/newArticulo',function (req,res) {
     mu.clearCache();
     page.title = 'Reddit - Curso - Dinamico';
     page.description = '';
     var stream = mu.compileAndRender('formularioArticulo.html', {title: "Reddit"});
     stream.pipe(res);
+});
+
+app.get('/delArticulo/:id', function (req, res) {
+    mu.clearCache();
+    var idborrar = req.params.id;
+    page.title = 'Reddit - Curso - Dinamico';
+    page.description = '';
+    manejadorArticulos.borrarArticulos(idborrar);
+    var noticias = manejadorArticulos.imprimirNoticias();
+    res.redirect('/');
 });
 
 app.post("/postArticulo",function(req,res){
@@ -40,7 +51,7 @@ app.post("/postArticulo",function(req,res){
     console.log(nuevoArticulo);
     manejadorArticulos.nuevoArticulo(req.body);
     var noticias = manejadorArticulos.imprimirNoticias();
-    var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: noticias});
+    var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: _.values(noticias)});
     stream.pipe(res);
 });
 
@@ -49,7 +60,7 @@ app.get('/index.html', function (req, res) {
     page.title = 'Reddit - Curso - Dinamico';
     page.description = '';
     var noticias = manejadorArticulos.imprimirNoticias();
-    var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: noticias});
+    var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: _.values(noticias)});
     stream.pipe(res);
 
 });

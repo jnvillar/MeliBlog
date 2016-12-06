@@ -6,30 +6,47 @@ var Articulo = function (titulo, resumen,contenido,id,imagen) {
     this.imagen = imagen;
 };
 
+var Articulos = function(){
+    this.articulos = {};
+    this.cantidadArticulos = 0;
+    this.ultimoArticulo = 0;
+};
 
-var articulos = [];
+
+var manejadorArticulos = new Articulos();
 var nuevo1 = new Articulo("Fin de año, con la cabeza quemada: tips para hacerle frente","El síndrome de “Burnout” es la epidemia del siglo XXI, que afecta cada vez a más personas. Cuáles son sus causas y quiénes son más propensos a sufrirlo","¿Qué tienen en común el papa Benedicto XVI y la cantante Mariah Carey? No mucho a primera vista, pero ambos fueron diagnosticados con uno de los grandes males que acongojan a las personas que viven en el siglo XXI: el síndrome del burnout. Pesadez mental, falta de energía y cansancio constante son tan sólo algunos de los síntomas de este agotamiento que lleva a que concentrarse en el trabajo sea cada vez más complicado y que afecta la vida personal de quienes lo sufren. El burnout es aún más fuerte en la época de las fiestas, donde las tareas parecen acumularse en demasía y las responsabilidades familiares abundan. No hay dudas de que en la actualidad el agotamiento es una preocupación alarmante. Un relevamiento llevado a cabo con médicos alemanes reveló que el 50% de los profesionales de la salud estaba sufriendo de burnout, un síndrome que se caracteriza por la presencia prolongada de estrés producido por el trabajo y cuyos síntomas incluyen fatiga crónica e ineficiencia laboral. Los individuos manifestaron sentirse agotados durante todo el día, y que el sólo hecho de pensar en el trabajo antes de levantarse a la mañana los dejaba agotados","0","/images/post1.jpg");
 var nuevo2 = new Articulo("Estos son los teléfonos en los que dejará de funcionar WhatsApp","Estos son los teléfonos en los que dejará de funcionar WhatsApp.","WhatsApp, uno de los servicios de mensajería más populares, dejará de estar disponible en ciertos modelos de celulares a fines de diciembre. LEA MÁS: Cuál es el servicio de mensajería más seguro del mundo Según anunció la compañía, los smartphones que cuenten con los siguientes sistemas operativos ya no podrán usar la aplicación entre fines de diciembre de este año y el 1 de enero de 2017: * Android 2.1 and Android 2.2  * Windows Phone 7 * iPhone 3GS/iOS 6 Quienes quieran seguir enviando y recibiendo mensajes por medio de esta app, tendrán que comprar móviles que funcionen, al menos, con Android 2.3, Windows Phone 8 o iOS 7. LEA MÁS: 7 claves para elegir los mejores celulares Pero estos no son los únicos equipos que van a ser jubilados  por la compañía. Según anunciaron en su blog, los siguiente modelos podrán seguir usando WhatsApp pero tan solo hasta junio de 2017: *BlackBerry OS *BlackBerry 10 *Nokia S40  *Nokia Symbian S60 De acuerdo con con la empresa, esta decisión se debe a que esos teléfonos antiguos no ofrecen el tipo de capacidades que necesitamos para expandir las posibilidades de WhatsApp en el futuro. LEA MÁS: Cuáles son los smartphones más potentes del año quienes quieran seguir usando el servicio tendrán que pensar en cambiar de modelo en los próximos días o bien renunciar a WhatsApp. Después de todo, no es el único sistema disponible para estar conectado. Telegram o Google Allo son apenas algunos de los tantos servicios de mensajería que se pueden utilizar. Por otra parte, casi todas las redes sociales, como Twitter, Facebook (por medio de Messenger), Snapchat o Instagram ofrecen la opción de enviar mensajes directos.","1","/images/post2.jpg");
 var nuevo3 = new Articulo("La receta millonaria que se vendió por solo un dólar","La receta millonaria que se vendió por solo un dólar."," La crisis económica azotaba a los Estados Unidos en la década del 30. Los comerciantes peleaban por mantenerse en pie frente a una economía en recesión constante. Algunos, sin embargo, lograronsortear la crisis e hicieron la base de su fortuna mientras otros emigraban en busca de un futuro próspero. Es la historia de Ruth Graves Wakefield, nacida en 1903 en Massachusetts, Boston, y dueña de uno de los inventos gastronómicos que perduraron para siempre. Con 27 años, era la persona que estaba al frente del Toll House, un restaurante que había construido junto a Kenneth Wakefield -su marido- y que ofrecía comida casera y un elegante servicio que atraía a un grupo selecto de clientes. En los primeros cuatro meses, Wakefield se las arregló con solo 12 empleados. Tres años más tarde, necesitó 50 personas para que se encolumnen detrás de ella en un modesto imperio que tenía varios locales añadidos al original, en donde en 1938 más de 100 trabajadores servían alrededor de mil comidas al día.","2","/images/post3.jpg");
-articulos.push(nuevo1,nuevo2,nuevo3);
+
+manejadorArticulos.articulos[nuevo1.id] = nuevo1;
+manejadorArticulos.articulos[nuevo2.id] = nuevo2;
+manejadorArticulos.articulos[nuevo3.id] = nuevo3;
+manejadorArticulos.ultimoArticulo = nuevo3.id;
+manejadorArticulos.cantidadArticulos = 2;
+
 
 
 module.exports = {
     imprimirNoticias: function () {
-        return articulos;
+        return manejadorArticulos.articulos;
     },
     imprimirArticulo: function (id) {
-        return articulos[id];
+        return manejadorArticulos.articulos[id];
     },
     imprimirUltimo: function () {
-        var ultimo =articulos.length;
-        return articulos[ultimo-1];
+        var ultimo = manejadorArticulos.ultimoArticulo;
+        return manejadorArticulos.articulos[ultimo];
     },
     nuevoArticulo: function (body) {
-        var id = articulos.length;
+        var id = manejadorArticulos.cantidadArticulos+1;
         var nuevoArticulo = new Articulo(body.titulo,body.resumen,body.contenido,id,body.imagen);
-        console.log(body.titulo);
-        articulos.push(nuevoArticulo);
+        manejadorArticulos.cantidadArticulos++;
+        manejadorArticulos.articulos[nuevoArticulo.id] = nuevoArticulo;
+    },
+
+    borrarArticulos: function(idBorrar){
+        delete  manejadorArticulos.articulos[idBorrar];
+        //manejadorArticulos.articulos.remove('idBorrar');
     }
 };
     // var a = Articulo("Chapecoense","Gana la copa");

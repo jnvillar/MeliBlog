@@ -13,6 +13,7 @@
     "body-parser": "^1.15.2",
     "express": "",
     "mu2": "^0.5.21",
-    "request": "^2.79.0"
+    "request": "^2.79.0",
+    "underscore": "^1.8.3"
   }
 }
