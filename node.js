@@ -9,10 +9,41 @@ var app = express();
 mu.root = __dirname + '/public';
 var page = {};
 
+
+
+body = require('body-parser');
+app.use(body.json());
+app.use(body.urlencoded({     // to support URL-encoded bodies
+    extended: true
+}));
+//app.use(body());
+
+
+
 app.get('/', function (req, res) {
     mu.clearCache();
     page.title = 'Reddit - Curso - Dinamico';
     page.description = '';
+    var noticias = manejadorArticulos.imprimirNoticias();
+    var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: noticias});
+    stream.pipe(res);
+});
+
+app.get('/newArticulo', function (req, res) {
+    mu.clearCache();
+    page.title = 'Reddit - Curso - Dinamico';
+    page.description = '';
+    var stream = mu.compileAndRender('formularioArticulo.html', {title: "Reddit"});
+    stream.pipe(res);
+});
+
+app.post("/postArticulo",function(req,res){
+    mu.clearCache();
+    page.title = 'Reddit - Curso - Dinamico';
+    page.description = '';
+    var nuevoArticulo = JSON.stringify(req.body);
+    console.log(nuevoArticulo);
+    manejadorArticulos.nuevoArticulo(req.body);
     var noticias = manejadorArticulos.imprimirNoticias();
     var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: noticias});
     stream.pipe(res);
@@ -38,11 +69,7 @@ app.get('/post/ultimo', function (req, res) {
     return;
 });
 
-app.get('/post/new', function (req, res) {
-    mu.clearCache();
-    res.sendFile();
-    return;
-});
+
 
 app.get('/post/:id', function (req, res) {
     mu.clearCache();
