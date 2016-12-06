@@ -21,7 +21,7 @@ app.get('/', function (req, res) {
     page.title = 'Reddit - Curso - Dinamico';
     page.description = '';
     var noticias = manejadorArticulos.imprimirNoticias();
-    var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: _.values(noticias)});
+    var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: _.values(noticias).reverse()});
     stream.pipe(res);
 });
 
@@ -51,8 +51,7 @@ app.post("/postArticulo",function(req,res){
     console.log(nuevoArticulo);
     manejadorArticulos.nuevoArticulo(req.body);
     var noticias = manejadorArticulos.imprimirNoticias();
-    var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: _.values(noticias)});
-    stream.pipe(res);
+    res.redirect('/');
 });
 
 app.post("/newComment/:id",function(req,res){
@@ -72,7 +71,7 @@ app.get('/index.html', function (req, res) {
     page.title = 'Reddit - Curso - Dinamico';
     page.description = '';
     var noticias = manejadorArticulos.imprimirNoticias();
-    var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: _.values(noticias)});
+    var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: (_.values(noticias)).reverse()});
     stream.pipe(res);
 
 });
@@ -82,7 +81,7 @@ app.get('/post/ultimo', function (req, res) {
     page.title = 'Reddit - Curso - Dinamico';
     page.description = '';
     var articulo = manejadorArticulos.imprimirUltimo();
-    var stream = mu.compileAndRender('single.html', {title: "Reddit" ,contenido: articulo.contenido, imagen: articulo.imagen,id:articulo.id,listcomentarios: _.values(articulo.comentarios)});
+    var stream = mu.compileAndRender('single.html', {title: "Reddit" ,contenido: articulo.contenido, imagen: articulo.imagen,id:articulo.id,listcomentarios: _.values(articulo.comentarios),autor: articulo.autor, imgautor: articulo.imgautor});
     stream.pipe(res);
     return;
 });
@@ -95,7 +94,7 @@ app.get('/post/:id', function (req, res) {
     page.title = 'Reddit - Curso - Dinamico';
     page.description = '';
     var articulo = manejadorArticulos.imprimirArticulo(post);
-    var stream = mu.compileAndRender('single.html', {title: "Reddit" ,contenido: articulo.contenido, imagen: articulo.imagen, id:articulo.id, listcomentarios: _.values(articulo.comentarios)});
+    var stream = mu.compileAndRender('single.html', {title: "Reddit" ,contenido: articulo.contenido, imagen: articulo.imagen, id:articulo.id, listcomentarios: _.values(articulo.comentarios),autor: articulo.autor, imgautor: articulo.imgautor});
     stream.pipe(res);
     return;
 });

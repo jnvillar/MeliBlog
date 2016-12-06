@@ -22,6 +22,7 @@ h1,h2,h3,h4,h5,h6{
 
 #submit_button_comment{
   margin-top: 3%;
+  margin-bottom: 3%;
 }
 
 #comment{
@@ -32,8 +33,9 @@ h1,h2,h3,h4,h5,h6{
 #comentario{
   margin-top: 1%;
   margin-bottom: 1%;
-
 }
+
+
 
 #usuario{
   font-size: small;
