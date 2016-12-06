@@ -88,16 +88,27 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		  		   <div class="clearfix"></div>
 		  		   </li>
 		  	  </ul>
-			  <div class="content-form">
-					 <h3>Leave a comment</h3>
-					<form>
-						<input type="text" placeholder="Name" required/>
-						<input type="text" placeholder="Email" required/>
-						<input type="text" placeholder="Phone" required/>
-						<textarea placeholder="Message"></textarea>
-						<input type="submit" value="SEND"/>
-				   </form>
-						 </div>
+
+			  {{#listcomentarios}}
+			  <p id = "usuario">Usuario: {{nombre}}</p>
+			  <div id = "comentario">
+				  <p id = "comentariotexto">{{comentario}}</p>
+			  </div>
+			  {{/listcomentarios}}
+
+			  <form id="contact_form" action="/newComment/{{id}}" method="POST">
+				  <h3>Leave a comment</h3>
+				  <div id = "comment" class="row">
+					  <label for="nombre">Nombre</label><br />
+					  <input id="nombre" class="input" name="nombre" type="text" value="" size="30" /><br />
+				  </div>
+				  <div id = "comment" class="row">
+					  <label for="comment">Comentario</label><br />
+					  <input id="comment" class="input" name="comentario" type="text" value="" size="30" /><br />
+				  </div>
+				  <input id="submit_button_comment" type="submit" value="Mandar Comentario" />
+			  </form>
+
 		  </div>
 
 		 <div class="col-md-4 content-right">
@@ -112,7 +123,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				 <h3>RECENT COMMENTS</h3>
 				 <ul>
 					 <li><a href="#">No hay comentarios</a> on <a href="#">Hello World!</a></li>
-
 				 </ul>
 			 </div>
 			 <div class="clearfix"></div>

@@ -4,6 +4,8 @@ var Articulo = function (titulo, resumen,contenido,id,imagen) {
     this.contenido = contenido;
     this.id = id;
     this.imagen = imagen;
+    this.cantComentarios = 0;
+    this.comentarios = {};
 };
 
 var Articulos = function(){
@@ -11,6 +13,11 @@ var Articulos = function(){
     this.cantidadArticulos = 0;
     this.ultimoArticulo = 0;
 };
+
+var Comentario = function(comment,usuario){
+    this.comentario = comment;
+    this.nombre = usuario;
+}
 
 
 var manejadorArticulos = new Articulos();
@@ -46,7 +53,16 @@ module.exports = {
 
     borrarArticulos: function(idBorrar){
         delete  manejadorArticulos.articulos[idBorrar];
-        //manejadorArticulos.articulos.remove('idBorrar');
+    },
+
+    nuevoComentario: function(body,post){
+        var articulo =  manejadorArticulos.articulos[post.toString()];
+        var idComment = articulo.cantComentarios;
+        var comentario = new Comentario(body.comentario,body.nombre);
+        manejadorArticulos.articulos[post].comentarios[idComment] = comentario;
+        manejadorArticulos.articulos[post].cantComentarios++;
+        console.log(manejadorArticulos.articulos);
+
     }
 };
     // var a = Articulo("Chapecoense","Gana la copa");

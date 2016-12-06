@@ -9,6 +9,7 @@ var app = express();
 mu.root = __dirname + '/public';
 var page = {};
 var _ = require('underscore');
+var request = require('request')
 body = require('body-parser');
 app.use(body.json());
 app.use(body.urlencoded({     // to support URL-encoded bodies
@@ -23,7 +24,6 @@ app.get('/', function (req, res) {
     var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: _.values(noticias)});
     stream.pipe(res);
 });
-
 
 app.get('/newArticulo',function (req,res) {
     mu.clearCache();
@@ -55,6 +55,18 @@ app.post("/postArticulo",function(req,res){
     stream.pipe(res);
 });
 
+app.post("/newComment/:id",function(req,res){
+    mu.clearCache();
+    page.title = 'Reddit - Curso - Dinamico';
+    page.description = '';
+    var nuevoComentario = JSON.stringify(req.body);
+    console.log(nuevoComentario);
+    var idPost = req.params.id;
+    console.log(idPost);
+    manejadorArticulos.nuevoComentario(req.body,idPost);
+    res.redirect('/post/'+idPost);
+});
+
 app.get('/index.html', function (req, res) {
     mu.clearCache();
     page.title = 'Reddit - Curso - Dinamico';
@@ -70,7 +82,7 @@ app.get('/post/ultimo', function (req, res) {
     page.title = 'Reddit - Curso - Dinamico';
     page.description = '';
     var articulo = manejadorArticulos.imprimirUltimo();
-    var stream = mu.compileAndRender('single.html', {title: "Reddit" ,contenido: articulo.contenido, imagen: articulo.imagen});
+    var stream = mu.compileAndRender('single.html', {title: "Reddit" ,contenido: articulo.contenido, imagen: articulo.imagen,id:articulo.id,listcomentarios: _.values(articulo.comentarios)});
     stream.pipe(res);
     return;
 });
@@ -83,7 +95,7 @@ app.get('/post/:id', function (req, res) {
     page.title = 'Reddit - Curso - Dinamico';
     page.description = '';
     var articulo = manejadorArticulos.imprimirArticulo(post);
-    var stream = mu.compileAndRender('single.html', {title: "Reddit" ,contenido: articulo.contenido, imagen: articulo.imagen});
+    var stream = mu.compileAndRender('single.html', {title: "Reddit" ,contenido: articulo.contenido, imagen: articulo.imagen, id:articulo.id, listcomentarios: _.values(articulo.comentarios)});
     stream.pipe(res);
     return;
 });
