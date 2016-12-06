@@ -16,6 +16,19 @@ app.use(body.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
 
+/*
+
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+    host     : 'us-cdbr-iron-east-04.cleardb.net',
+    user     : 'bceeda9eea0dd3',
+    password : 'edba5724',
+    database : 'heroku_cf5b636da0527a4'
+});
+
+connection.connect();
+*/
+
 app.get('/', function (req, res) {
     mu.clearCache();
     page.title = 'Reddit - Curso - Dinamico';
