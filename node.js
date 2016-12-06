@@ -9,16 +9,11 @@ var app = express();
 mu.root = __dirname + '/public';
 var page = {};
 
-
-
 body = require('body-parser');
 app.use(body.json());
 app.use(body.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
-//app.use(body());
-
-
 
 app.get('/', function (req, res) {
     mu.clearCache();
@@ -82,8 +77,6 @@ app.get('/post/:id', function (req, res) {
     return;
 });
 
-
-
 app.use("/css",express.static(__dirname + '/public/css'));
 app.use("/scss",express.static(__dirname + '/public/scss'));
 app.use("/img",express.static(__dirname + '/public/images'));
@@ -106,47 +99,3 @@ app.use(function(req, res, next){
 });
 
 app.listen(process.env.PORT || 3000);
-
-
-/*
-server.on ("request", function (req, res) {
-    var urlData = url.parse(req.url, true);
-    var path = urlData.pathname;
-    if(path == '/' || path == '/index.html') {
-        //WORK WITH MUSTACHE
-        mu.clearCache();
-        page.title = 'Reddit - Curso - Dinamico';
-        page.description = '';
-        var noticias = manejadorArticulos.imprimirNoticias();
-        // var stream = mu.compileAndRender('index.html', {page: page, nombre: "Jonathan", noticias: noticiasService.get()});
-        var stream = mu.compileAndRender('index.html', {title: "Reddit", noticias: noticias});
-        stream.pipe(res);
-    }
-    else{
-        //Trabajo como antes
-
-        var filePath= "public"+path;
-        fs.exists(filePath,function(exists) {
-            if (exists) {
-                fs.readFile(filePath, function (err, data) {
-                    if (err) {
-                        res.writeHead(500);
-                        if (path == "/") {
-                            filePath = "public/index.html";
-                            fs.readFile(filePath, function (err, data) {
-                                res.end(data);
-                            })
-                        }
-                    } else {
-                        res.end(data);
-                    }
-                })
-            } else {
-                res.writeHead(404);
-                res.end("No existe");
-            }
-        })
-    }
-});
-
-server.listen(process.env.PORT || 3000);*/
